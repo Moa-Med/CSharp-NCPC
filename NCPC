@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n, k , result;
+          
+            //the input
+            String[] input1= Console.ReadLine().Split(' ');
+            n = Convert.ToInt32(input1[0]);
+            k = Convert.ToInt32(input1[1]);
+
+            int[] value = new int[n+1];
+            for(int i1 = 0; i1 < n; i1++)
+              {
+                value[i1]= Convert.ToInt32(Console.ReadLine());
+              }
+           
+            if (n <= k) { result = 1; }
+            else
+            {
+                result=Server(k,n, value);
+            
+            }
+            
+            Console.WriteLine(result);
+            Console.ReadLine();
+
+        }
+        
+        public static int Server(int k, int n,int[] value)
+        {
+            int sum = 0, i, j,ans;
+                for (i = 0, j = 0; i < n && j < n;)
+                {
+                //the distance between to array value <1000
+                while (value[j] - value[i] < 1000 && j < n)  j++; 
+                    if (j == n) break;
+                    sum = Math.Max(sum, j - i);
+                    i++;
+                }
+                sum = Math.Max(sum, j - i);
+            
+            //in case if the rest is more than 1
+                 ans = sum / k;
+                if (sum % k!=0) ans++;
+
+
+            return ans;
+             
+        }
+    }
+
+}
